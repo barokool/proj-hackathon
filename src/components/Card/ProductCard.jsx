@@ -1,11 +1,12 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 import numberWithCommas from "../../utils/numberWithCommas";
 import "./product-card.scss";
 const ProductCard = (props) => {
+  const { id } = useParams();
   return (
     <div className="product-card">
-      {/* <Link to={`/catalog/${props.slug}`}> */}
-      <>
+      <Link to={`/detail/${props.id}`} style={{ textDecoration: "none" }}>
         <div className="product-card__image">
           <img src={props.img01} alt="" />
           <img src={props.img02} alt="" />
@@ -17,7 +18,7 @@ const ProductCard = (props) => {
             <del>{numberWithCommas(399000)}</del>
           </span>
         </div>
-      </>
+      </Link>
       {/* </Link> */}
       <div className="product-card__btn">
         {/* <Button
@@ -28,7 +29,7 @@ const ProductCard = (props) => {
         >
           chọn mua
         </Button> */}
-        <button>Chon mua</button>
+        <button className="btn">Xem</button>
       </div>
     </div>
   );
