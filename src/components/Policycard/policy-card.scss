@@ -1,0 +1,68 @@
+$main-bg: #fff;
+$main-color: #4267b2;
+
+$txt-main-color: #000;
+$txt-second-color: #8d8d8d;
+$txt-white: #fff;
+
+$btn-main-bg: $main-color;
+$btn-main-color: #fff;
+
+$header-height: 170px;
+$header-tablet-height: 70px;
+$header-mobile-height: 40px;
+$header-shrink-height: 70px;
+
+$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+$colors: (
+  "blue": #4267b2,
+  "orange": #fbb96b,
+  "pink": #fe7e73,
+  "white": #fff,
+  "black": #000,
+  "main": $main-color,
+  "red": #ff0000,
+);
+
+$mobile-width: 600px;
+$tablet-width: 1024px;
+
+.policy-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  padding-left: 0;
+  box-shadow: $box-shadow;
+  transition: transform 0.5s ease;
+
+  &:hover {
+    transform: translateY(-20px);
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    color: $main-color;
+
+    i {
+      font-size: 3rem;
+    }
+  }
+
+  &__info {
+    &__name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    &__description {
+      font-size: 1rem;
+      color: $txt-second-color;
+    }
+  }
+}
