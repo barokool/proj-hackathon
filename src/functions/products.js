@@ -51,7 +51,10 @@ const getProducts = (count) => {
 };
 
 const getAllProducts = () => products;
-const getProductBySlug = (id) => products.find((e) => e.id === id);
+const getProductBySlug = (id) => {
+  console.log(products);
+  return products.filter((e) => e.id == id)[0];
+};
 const productData = {
   getProducts,
   getAllProducts,
