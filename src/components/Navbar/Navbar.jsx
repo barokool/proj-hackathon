@@ -7,10 +7,14 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import PersonIcon from "@mui/icons-material/Person";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Context/AuthContext";
+import { Button, Modal } from "react-bootstrap";
+import { Login } from "../Auth/Login/Login";
+import { Register } from "../Auth/Register/Register";
+
 export const Navbar = () => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -22,7 +26,13 @@ export const Navbar = () => {
     window.location.reload();
     dispatch({ type: "LOGOUT" });
   };
+  const [loginShow, setLoginShow] = useState(false);
+  const [registerShow, setRegisterShow] = useState(false);
 
+  const handleLoginShow = () => setLoginShow(true);
+  const handleRegisterShow = () => setRegisterShow(true);
+
+  const navigate = useNavigate();
   return (
     <div className="navbar">
       <div className="wrapper">
@@ -31,7 +41,7 @@ export const Navbar = () => {
           <SearchOutlinedIcon className="icon" onClick={() => handleClick()} />
         </div>
         <div className="logo">
-          <span>JIT TEAM</span>
+          <span onClick={() => navigate("/")}>JIT TEAM</span>
         </div>
         <div className="items">
           <div className="item">
@@ -70,15 +80,23 @@ export const Navbar = () => {
               <ul>
                 {user ? (
                   <>
-                    <li className="info-user">Hello {user.user}</li>
+                    <li className="info-user">Hello {user.user_name}</li>
                     <li className="info-user" onClick={() => handleLogout()}>
                       Log out
                     </li>
                   </>
                 ) : (
                   <li>
-                    <Link to="/login">Login</Link>
-                    <Link to="/register">Register</Link>
+                    <a onClick={handleLoginShow}>Login</a>
+                    <Login
+                      stateShow={loginShow}
+                      ClosePopup={() => setLoginShow(false)}
+                    />
+                    <a onClick={handleRegisterShow}>Register</a>
+                    <Register
+                      stateShow={registerShow}
+                      ClosePopup={() => setRegisterShow(false)}
+                    />
                   </li>
                 )}
               </ul>

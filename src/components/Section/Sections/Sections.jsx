@@ -34,7 +34,7 @@ export const Sections = () => {
                 img02={item.image02}
                 name={item.title}
                 price={Number(item.price)}
-                slug={item.slug}
+                id={item.id}
               />
             ))}
           </Grid>
