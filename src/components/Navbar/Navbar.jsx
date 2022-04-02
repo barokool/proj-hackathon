@@ -7,15 +7,31 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import PersonIcon from "@mui/icons-material/Person";
-import React from "react";
-
+import React, { useContext, useRef } from "react";
+import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/Context/AuthContext";
 export const Navbar = () => {
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const handleClick = () => {
+    alert("click");
+  };
+  const { user, dispatch } = useContext(AuthContext);
+  const handleLogout = () => {
+    window.location.reload();
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
     <div className="navbar">
       <div className="wrapper">
         <div className="search">
           <input type="text" placeholder="Search..." />
-          <SearchOutlinedIcon />
+          <SearchOutlinedIcon className="icon" onClick={() => handleClick()} />
+        </div>
+        <div className="logo">
+          <span>JIT TEAM</span>
         </div>
         <div className="items">
           <div className="item">
@@ -43,7 +59,30 @@ export const Navbar = () => {
             <ListOutlinedIcon className="icon" />
           </div>
           <div className="item">
-            <PersonIcon className="icon" />
+            <PersonIcon
+              onClick={() => setIsActive(!isActive)}
+              className="icon"
+            />
+            <nav
+              ref={dropdownRef}
+              className={`menu ${isActive ? "active" : "inactive"}`}
+            >
+              <ul>
+                {user ? (
+                  <>
+                    <li className="info-user">Hello {user.user}</li>
+                    <li className="info-user" onClick={() => handleLogout()}>
+                      Log out
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Register</Link>
+                  </li>
+                )}
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
